@@ -625,28 +625,33 @@ Wait for none…. Get up and Get ready to welcome a fit and healthy version of y
 </div>
 </div></div></div>
 
-
-
-<div class="lightblock spacer2">
-<div class="container">
-<div class="row">
-<div class="col-md-12 col-sm-12 col-xs-12 text-right">
-<a href="t-and-c.html" target="_blank">Terms & Conditions</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="privacy-policy.html" target="_blank">Privacy Policy</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="anti-spam.html" target="_blank">Anti Spam</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="Save-Package" target="_blank">DMCA</a>&nbsp;&nbsp;&nbsp;&nbsp;
-<a href="disclaimer.html" target="_blank">Disclaimer</a>
-</div>
-</div>
-</div>
-</div>
- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="hosted_button_id" value="NLLVSR5QYBUEL">
-<input type="image" src="https://www.paypalobjects.com/es_XC/MX/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal, la forma más segura y rápida de pagar en línea.">
-<img alt="" border="0" src="https://www.paypalobjects.com/es_XC/i/scr/pixel.gif" width="1" height="1">
-</form>
-
+<div id="paypal-button-container"></div>
+<script src="https://www.paypal.com/sdk/js?client-id=Ac9CbLsGcVbtfhe4ND1HjDxjje8iAqdFW0ylbLNp7pc3OOQlNGzXGUBG5UpGA8y-eji2AnNELjMwaqb7&currency=USD" data-sdk-integration-source="button-factory"></script>
+<script>
+  paypal.Buttons({
+      style: {
+          shape: 'rect',
+          color: 'gold',
+          layout: 'vertical',
+          label: 'buynow',
+          
+      },
+      createOrder: function(data, actions) {
+          return actions.order.create({
+              purchase_units: [{
+                  amount: {
+                      value: '1'
+                  }
+              }]
+          });
+      },
+      onApprove: function(data, actions) {
+          return actions.order.capture().then(function(details) {
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+          });
+      }
+  }).render('#paypal-button-container');
+</script>
 
 
 </body>
